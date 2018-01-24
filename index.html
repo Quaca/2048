@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <link href="style.css" rel="stylesheet">
+    <title>Amar</title>
+</head>
+
+<body>
+    <h1>2048</h1>
+    <p id="score">Scoure: 0</p>
+    <div id="size-bloc">
+        <!--<p id="size-title">Size : </p>
+        <input id="size" type="number" value="4">
+        <input id="change-size" type="button" value="Ok">-->
+        <div class="clear"></div>
+    </div>
+
+    <div id="canvas-bloc">
+        <canvas id="canvas" width="500" height="500"></canvas>
+    </div>
+
+    <div class="popup" data-popup="popup-1">
+        <div class="popup-inner">
+            <div id="form">
+                <div id="form-heading">Submit your score</div>
+                <label for="fname"><span class="required">Name</span><input type="text" id="fname" value=""></label>
+                <label><span>Score</span><p id="finalScore" style="color: #000;"></p></label>
+                <label><input id="submit" type="submit" value="Submit" /></label>
+            </div>
+            <!--<a class="popup-close" data-popup-close="popup-1" href="#">A</a>-->
+        </div>
+    </div>
+    <div class="popup" data-popup="popup-2">
+        <div class="popup-inner">
+            <div id="tabela">
+            </div>
+            <button id="playAgain">Play Again</button>
+        </div>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="script.js"></script>
+
+    <script>
+        $("#submit").click(function(event) {
+            event.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "post.php",
+                data: {
+                    name: $("#fname").val(),
+                    score: score
+                },
+                /*success: function(result) {
+                    alert(result.content);
+                }*/
+            });
+
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "result.php", //Relative or absolute path to response.php file
+                data: "",
+                success: function(data) {
+                    $("#tabela").html(data["content"]);
+                }
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>
